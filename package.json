@@ -1,0 +1,16 @@
+{
+  "name": "server-test",
+  "version": "1.0.0",
+  "description": "server di test per provare le chiamate api",
+  "main": "serverRest.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "nicholas giordano - mat 1633810",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "https": "^1.0.0",
+    "request": "^2.79.0"
+  }
+}
