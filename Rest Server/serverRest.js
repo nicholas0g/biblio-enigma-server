@@ -69,7 +69,7 @@ app.get('/:id', function (req, res,next) {
 })
 
 //endpoint privato che permette di segnalare studente in ingresso
-app.post('/studenteIn/:id',function(req,res){
+app.put('/studente/:id',function(req,res){
     fs.readFile( __dirname + "/" + "biblioteche.json", 'utf8', function (err, data) {
        biblioteche = JSON.parse( data );
        var residui = biblioteche["biblioteca" + req.params.id]['postazioni'];
@@ -83,7 +83,7 @@ app.post('/studenteIn/:id',function(req,res){
 });
 
 //endpoint privato che permette di segnalare studente in uscita
-app.post('/studenteOut/:id',function(req,res){
+app.delete('/studente/:id',function(req,res){
     fs.readFile( __dirname + "/" + "biblioteche.json", 'utf8', function (err, data) {
        biblioteche = JSON.parse( data );
        var residui = biblioteche["biblioteca" + req.params.id]['postazioni'];
