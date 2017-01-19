@@ -22,7 +22,9 @@ In base alle esigenze è possibile avviare il servizio in maniera completa (real
 * Nella cartella 'Server Rest' è invece possibile trovare la versione senza interfaccia grafica che mette a disposizione solamente i servizi di rest
 
 Di seguito alcune screen del servizio in esecuzione completo:
+**Se si va su host:3000**
 ![home](home.png)
+**Se si va su host:3000/api**
 ![api](api.png)
 
 	
