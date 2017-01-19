@@ -97,7 +97,7 @@ app.post('/studenteOut/:id',function(req,res){
 });
 
 app.get('/book/:text',function(req,res,next){
-	request('https://www.tastekid.com/api/similar?k=256568-webtest-ZH9IQKM7&q='+req.params.text.replace(/ /gi, "+"), function (error, response, body) {
+	request('https://www.tastekid.com/api/similar?k=256568-webtest-ZH9IQKM7&type=book&q='+req.params.text, function (error, response, body) {
     if (!error && response.statusCode == 200) {
         res.end(body);
     }
