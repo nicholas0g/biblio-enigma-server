@@ -1,0 +1,22 @@
+extends ../node_modules/jade-bootstrap/_bootstrap
+append styles
+	link(href='../stylesheets/navbar-static-top.css', rel='stylesheet')
+block body
+	// Static navbar
+	+navbar-static("Biblio-Enigma-API","navbar")
+	.container
+		.jumbotron
+			h1 GET /api/listaBiblioteche
+			p Questa chiamata restituisce la lista delle biblioteche con i loro dettagli sottoforma di oggetto JSON
+			p Non è necessario essere autenticati per eseguirla ed è disponibile per tutti gli utenti.
+			p
+		.jumbotron
+			h1 GET /api/{id}
+			p Questa chiamata restituisce i dettagli di una singola biblioteca con id {id} sottoforma di oggetto JSON
+			p Non è necessario essere autenticati per eseguirla ed è disponibile per tutti gli utenti.
+			p
+		.jumbotron
+			h1 GET /api/socialStatus/{id}
+			p Questa chiamata restituisce direttamente da twitter la lista dei recenti tweet che riguardano una determinata biblioteca. I tweet vengono filtrati in base all'hastag sapienza e l'hastag della biblioteca con id {id}
+			p Non è necessario essere autenticati per eseguirla ed è disponibile per tutti gli utenti.
+			ptext-simple Per funzionare deve essere configurato sul server in cui il servizio è in esecuzione la chiave pubblica e private di una twitter app, come previsto dalle regole delle api di twitter per l'accesso alle sue api al fine dell'ottenimento di un token
