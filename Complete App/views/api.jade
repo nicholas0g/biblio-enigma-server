@@ -16,7 +16,27 @@ block body
 			p Non è necessario essere autenticati per eseguirla ed è disponibile per tutti gli utenti.
 			p
 		.jumbotron
+			h1 GET /api/postiOccupati
+			p Questa chiamata restituisce sotto forma di file json i posti occupati nelle 4 biblioteche in analisi mostrando id della biblioteca e posti occupati per la biblioteca con quell'id
+			p Non è necessario essere autenticati per eseguirla ed è disponibile per tutti gli utenti.
+			p
+		.jumbotron
+			h1 PUT /api/studente/{id}
+			p Questa chiamata inserisce uno studente in ingresso nella biblioteca con id {id}
+			p E' necessario essere autenticati per eseguire questa chiamata
+			p
+		.jumbotron
+			h1 DELETE /api/studente/{id}
+			p Questa chiamata inserisce uno studente in uscita nella biblioteca con id {id}
+			p E' necessario essere autenticati per eseguire questa chiamata
+			p
+		.jumbotron
 			h1 GET /api/socialStatus/{id}
 			p Questa chiamata restituisce direttamente da twitter la lista dei recenti tweet che riguardano una determinata biblioteca. I tweet vengono filtrati in base all'hastag sapienza e l'hastag della biblioteca con id {id}
 			p Non è necessario essere autenticati per eseguirla ed è disponibile per tutti gli utenti.
 			ptext-simple Per funzionare deve essere configurato sul server in cui il servizio è in esecuzione la chiave pubblica e private di una twitter app, come previsto dalle regole delle api di twitter per l'accesso alle sue api al fine dell'ottenimento di un token
+		.jumbotron
+			h1 GET /api/book/{title}
+			p Questa chiamata restituisce una lista di elementi corerlati ad un libro con titolo {title}
+			p Non è necessario essere autenticati per eseguirla ed è disponibile per tutti gli utenti.
+			p
