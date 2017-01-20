@@ -1,7 +1,8 @@
 # biblio-enigma-server
 This repo contain the project for " Network comunications" - Sapienza Univ. of Rome ay2016/2017
 
-Nella seguente repository e possibile trovare il progetto per Reti di Calcolatori. Il progetto svolge il seguente servizio: si occupa di gestire i posti disponibili nelle sale lettura delle biblioteche del nostro ateneo. Il servizio implementa api rest che possono eseguire i seguenti compiti
+Nella seguente repository e possibile trovare il progetto per Reti di Calcolatori. 
+Il progetto svolge il seguente servizio: si occupa di gestire i posti disponibili nelle sale lettura delle biblioteche del nostro ateneo. 
 
 #Quali servizi sono resi disponibili tramite rest?
 * conoscere informazioni generiche sulle biblioteche gestite
@@ -16,16 +17,14 @@ Nella seguente repository e possibile trovare il progetto per Reti di Calcolator
 * Tastekid (per i suggerimenti basati sul titolo di un libro)
 
 #Come avviare il servizio:
-In base alle esigenze è possibile avviare il servizio in maniera completa (realizzato totalmente con framework expressjs) o in maniera "server" mettendo a disposizione i singoli endpoint delle api.
-
-* Nella cartella 'Comlete App' è posibile trovare la versione completa del progetto, che va in esecuzione sulla porta 3000 e fornisce oltre ai servizi rest un'interfaccia grafica di spiegazione e una home page
-* Nella cartella 'Server Rest' è invece possibile trovare la versione senza interfaccia grafica che mette a disposizione solamente i servizi di rest
+Per avviare il servizio basta mandare in esecuzione app.js, realizzata con framework expressjs e in esecuzione sulla porta 3000.
 
 Di seguito alcune screen del servizio in esecuzione completo:
+(Per il framework grafico è stato utilizzato jade)
 
 **Se si va su host:3000**
-![home](home.png)
+![home](/screenshot/home.png)
 **Se si va su host:3000/api**
-![api](api.png)
+![api](screenshot/api.png)
 
 	

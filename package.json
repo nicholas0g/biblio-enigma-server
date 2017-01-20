@@ -1,0 +1,22 @@
+{
+  "name": "biblio.enigma.server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Server per il servizio biblio enigma",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./app.js"
+  },
+  "author": "Nicholas Giordano - mat. 1633810",
+  "dependencies": {
+    "body-parser": "~1.15.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "express": "~4.14.0",
+    "jade": "~1.11.0",
+    "jade-bootstrap": "^1.0.9",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.0",
+    "request": "^2.79.0"
+  }
+}
