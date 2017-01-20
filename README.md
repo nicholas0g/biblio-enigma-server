@@ -24,7 +24,10 @@ E' possibile iscriversi a queste notifiche visitando la pagina di. test (http://
 #Come avviare il servizio:
 Per avviare il servizio basta mandare in esecuzione app.js, realizzata con framework expressjs e in esecuzione sulla porta 3000.
 
-Di seguito alcune screen del servizio in esecuzione completo:
+#Utilizzo delle API:
+...da scrivere...
+
+Di seguito alcune screen del servizio in esecuzione:
 (Per il framework grafico è stato utilizzato jade)
 
 **Se si va su host:3000**
