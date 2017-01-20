@@ -24,11 +24,13 @@ block body
 			h1 PUT /api/studente/{id}
 			p Questa chiamata inserisce uno studente in ingresso nella biblioteca con id {id}
 			p E' necessario essere autenticati per eseguire questa chiamata
+			p Ogni volta che questa chiamata si verifica viene inviata notifica push asincrona ai sottoscrittori
 			p
 		.jumbotron
 			h1 DELETE /api/studente/{id}
 			p Questa chiamata inserisce uno studente in uscita nella biblioteca con id {id}
 			p E' necessario essere autenticati per eseguire questa chiamata
+			p Ogni volta che questa chiamata si verifica viene inviata notifica push asincrona ai sottoscrittori
 			p
 		.jumbotron
 			h1 GET /api/socialStatus/{id}

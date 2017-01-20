@@ -34,7 +34,6 @@ router.get('/postiOccupati',function(req,res){
 //endpoint pubblico che restituisce la lista totale delle biblioteche
 router.get('/listaBiblioteche', function (req, res,next) {
    fs.readFile( __dirname + "/" + "biblioteche.json", 'utf8', function (err, data) {
-       console.log('Richiesta GET generica');
        res.end( data );
    });
 })
@@ -44,7 +43,6 @@ router.get('/:id', function (req, res,next) {
    fs.readFile( __dirname + "/" + "biblioteche.json", 'utf8', function (err, data) {
        biblioteche = JSON.parse( data );
        var biblioteca = biblioteche["biblioteca" + req.params.id] ;
-       console.log('Richiesta GET su biblioteca con id %s',req.params.id);
        res.end( JSON.stringify(biblioteca));
    });
 })
@@ -54,10 +52,9 @@ router.put('/studente/:id',function(req,res){
     fs.readFile( __dirname + "/" + "biblioteche.json", 'utf8', function (err, data) {
        biblioteche = JSON.parse( data );
        var residui = biblioteche["biblioteca" + req.params.id]['postazioni'];
-        console.log("Studente in ingresso sulla biblioteca %s",req.params.id);
-        inviaNotifica("Studente in ingresso sulla biblioteca " + req.params.id);
         if(posti[req.params.id]<residui){
             posti[req.params.id]=posti[req.params.id]+1;
+            inviaNotifica("Studente in ingresso sulla biblioteca " + req.params.id);
             res.end(JSON.stringify(ok));
         }
         else res.end(JSON.stringify(fail));
@@ -69,10 +66,9 @@ router.delete('/studente/:id',function(req,res){
     fs.readFile( __dirname + "/" + "biblioteche.json", 'utf8', function (err, data) {
        biblioteche = JSON.parse( data );
        var residui = biblioteche["biblioteca" + req.params.id]['postazioni'];
-        console.log("Studente in uscita sulla biblioteca %s",req.params.id);
-        inviaNotifica("Studente in uscita sulla biblioteca " + req.params.id);
         if(posti[req.params.id]>0){
             posti[req.params.id]=posti[req.params.id]-1;
+            inviaNotifica("Studente in uscita sulla biblioteca " + req.params.id);
             res.end(JSON.stringify(ok));
         }
         else res.end(JSON.stringify(fail));
@@ -92,7 +88,6 @@ router.get('/socialStatus/:id', function (req, res,next) {
 	fs.readFile( __dirname + "/" + "biblioteche.json", 'utf8', function (err, data) {
        biblioteche = JSON.parse( data );
        tag= biblioteche["biblioteca" + req.params.id]["twittertag"] ;
-       console.log('Richiesta social su biblioteca con id %s',req.params.id);
        var options_api = {
 		url: 'https://api.twitter.com/1.1/search/tweets.json?q=%23sapienza+%23'+tag+'&result_type=recent',
         headers: {
@@ -102,11 +97,9 @@ router.get('/socialStatus/:id', function (req, res,next) {
     request(options_api, function (error, response, body) {
     if (!error && response.statusCode == 200) {
         res.end(body);
-        console.log("Richiesta fatta per #"+req.params.tweet);
     }
     else{
         console.log(body)
-        console.log("C'è stato un errore nella chiama api")
     }
 	})
 	});

@@ -1,8 +1,12 @@
 # biblio-enigma-server
 This repo contain the project for " Network comunications" - Sapienza Univ. of Rome ay2016/2017
 
+E' possible provare e testare il progetto in tutte le sue funzionalità all'indirizzo [http://demo.nicholasgiordano.it:3000]
+
 Nella seguente repository e possibile trovare il progetto per Reti di Calcolatori. 
 Il progetto svolge il seguente servizio: si occupa di gestire i posti disponibili nelle sale lettura delle biblioteche del nostro ateneo. 
+Ongi volta che viene registrato uno studente in entrata o in uscita da una biblioteca viene inviata una notifica push tramite web. 
+E' possibile iscriversi a queste notifiche visitando la pagina di. test (http://demo.nicholasgiordano.it/biblionotifiche)
 
 #Quali servizi sono resi disponibili tramite rest?
 * conoscere informazioni generiche sulle biblioteche gestite
@@ -15,6 +19,7 @@ Il progetto svolge il seguente servizio: si occupa di gestire i posti disponibil
 #Api esterne utilizate:
 * Twitter (per lo status sui social)
 * Tastekid (per i suggerimenti basati sul titolo di un libro)
+* Onesignal (per l'invio delle notifiche)
 
 #Come avviare il servizio:
 Per avviare il servizio basta mandare in esecuzione app.js, realizzata con framework expressjs e in esecuzione sulla porta 3000.
