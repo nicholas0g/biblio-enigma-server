@@ -1,3 +1,9 @@
+/////CONFIGURARE QUI DI SEGUITO LE CHIAVI PRIVATE PER LE API!
+var twitter_app='Smg2ZXRtUUFBQUFZOW5BVW0wd2g4SzlUTjpQREpESm1WUHhwcncxc2Q0cHFkSjMxZ2tsWkxuWmh1alNMVzRydUp0N0tQTTNaVk41Uw==';
+var onesignalapp="0a8fd04f-002e-46d4-9b00-1f207ec65e78";
+var onesinal_secret='YjliODM1NWYtZWVjMi00MWM4LTliZTgtYWM4NGQzODQ0NDdj';
+////queste api di test saranno valide fino a quanto il prof non vedrà il progetto. Saranno poi rese inutilizzabili!
+
 var express = require('express');
 var fs = require("fs");
 var request=require('request');
@@ -48,7 +54,8 @@ router.put('/studente/:id',function(req,res){
     fs.readFile( __dirname + "/" + "biblioteche.json", 'utf8', function (err, data) {
        biblioteche = JSON.parse( data );
        var residui = biblioteche["biblioteca" + req.params.id]['postazioni'];
-        console.log("Studente in ingresso sulla biblioteca %s",req.params.id)
+        console.log("Studente in ingresso sulla biblioteca %s",req.params.id);
+        inviaNotifica("Studente in ingresso sulla biblioteca " + req.params.id);
         if(posti[req.params.id]<residui){
             posti[req.params.id]=posti[req.params.id]+1;
             res.end(JSON.stringify(ok));
@@ -62,7 +69,8 @@ router.delete('/studente/:id',function(req,res){
     fs.readFile( __dirname + "/" + "biblioteche.json", 'utf8', function (err, data) {
        biblioteche = JSON.parse( data );
        var residui = biblioteche["biblioteca" + req.params.id]['postazioni'];
-        console.log("Studente in uscita sulla biblioteca %s",req.params.id)
+        console.log("Studente in uscita sulla biblioteca %s",req.params.id);
+        inviaNotifica("Studente in uscita sulla biblioteca " + req.params.id);
         if(posti[req.params.id]>0){
             posti[req.params.id]=posti[req.params.id]-1;
             res.end(JSON.stringify(ok));
@@ -113,7 +121,7 @@ var options_token = {
     url: 'https://api.twitter.com/oauth2/token',
     method: 'POST',
     headers: {
-        'Authorization':'Basic Smg2ZXRtUUFBQUFZOW5BVW0wd2g4SzlUTjpQREpESm1WUHhwcncxc2Q0cHFkSjMxZ2tsWkxuWmh1alNMVzRydUp0N0tQTTNaVk41Uw==',
+        'Authorization':'Basic '+twitter_app,
         'Content-Type':'application/x-www-form-urlencoded'
     },
     body:'grant_type=client_credentials'
@@ -131,4 +139,47 @@ request(options_token, function (error, response, body) {
     }
 })
 //--finisce qui il codice per utilizzare le api rest di twitter
+
+//--qui viene definita la funzione per l'invio delle notifiche asincrone tamite onesignal'
+var inviaNotifica=function(testo_notifica){
+    var sendNotification = function(data) {
+    var headers = {
+    "Content-Type": "application/json; charset=utf-8",
+    "Authorization": "Basic " + onesinal_secret
+    };
+  
+    var options = {
+    host: "onesignal.com",
+    port: 443,
+    path: "/api/v1/notifications",
+    method: "POST",
+    headers: headers
+    };
+  
+    var https = require('https');
+    var req = https.request(options, function(res) {  
+    res.on('data', function(data) {
+      console.log("Response:");
+      console.log(JSON.parse(data));
+    });
+    });
+  
+    req.on('error', function(e) {
+    console.log("ERROR:");
+    console.log(e);
+    });
+  
+    req.write(JSON.stringify(data));
+    req.end();
+    };
+
+    var message = { 
+    app_id: onesignalapp,
+    contents: {"en": testo_notifica},
+    included_segments: ["All"]
+    };
+
+sendNotification(message);
+}
+//--terminata funzione di invio notifiche
 module.exports = router;
