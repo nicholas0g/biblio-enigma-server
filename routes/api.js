@@ -37,7 +37,7 @@ router.get('/postiOccupati',function(req,res){
 //endpoint pubblico che restituisce la lista totale delle biblioteche
 router.get('/listaBiblioteche', function (req, res,next) {
    fs.readFile( __dirname + "/" + "biblioteche.json", 'utf8', function (err, data) {
-       res.end( data );
+       res.end(data);
    });
 })
 
