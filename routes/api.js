@@ -13,6 +13,9 @@ var router = express.Router();
 var posti={1:0,2:0,3:0,4:0,5:0};
 var ok={"result":"ok"};
 var fail={"result":"fail"};
+var failauth={"result":"Authorization failure"};
+//sono contenuti qui dei token di prova per autorizzare le chiama api ad endpoint privato
+var token_validi=['kdfgdskfgadfgadufgadsgf','dasfasfafafafadfa'];
 
 //utilizzato per risolvere problematiche CORS
 router.use(function(req, res, next) {
@@ -49,32 +52,51 @@ router.get('/:id', function (req, res,next) {
 
 //endpoint privato che permette di segnalare studente in ingresso
 router.put('/studente/:id',function(req,res){
-    fs.readFile( __dirname + "/" + "biblioteche.json", 'utf8', function (err, data) {
-       biblioteche = JSON.parse( data );
-       var residui = biblioteche["biblioteca" + req.params.id]['postazioni'];
-        if(posti[req.params.id]<residui){
-            posti[req.params.id]=posti[req.params.id]+1;
-            inviaNotifica("Studente in ingresso sulla biblioteca " + req.params.id);
-            res.end(JSON.stringify(ok));
-        }
-        else res.end(JSON.stringify(fail));
-   });
+    var token=req.headers.token;
+    if(token_validi.indexOf(token)!=-1){
+        fs.readFile( __dirname + "/" + "biblioteche.json", 'utf8', function (err, data) {
+            biblioteche = JSON.parse( data );
+            var residui = biblioteche["biblioteca" + req.params.id]['postazioni'];
+            if(posti[req.params.id]<residui){
+                posti[req.params.id]=posti[req.params.id]+1;
+                inviaNotifica("Studente in ingresso sulla biblioteca " + req.params.id);
+                res.end(JSON.stringify(ok));
+            }
+            else res.end(JSON.stringify(fail));
+        });
+    }
+    else res.end(JSON.stringify(failauth));
 });
 
 //endpoint privato che permette di segnalare studente in uscita
 router.delete('/studente/:id',function(req,res){
-    fs.readFile( __dirname + "/" + "biblioteche.json", 'utf8', function (err, data) {
-       biblioteche = JSON.parse( data );
-       var residui = biblioteche["biblioteca" + req.params.id]['postazioni'];
-        if(posti[req.params.id]>0){
-            posti[req.params.id]=posti[req.params.id]-1;
-            inviaNotifica("Studente in uscita sulla biblioteca " + req.params.id);
-            res.end(JSON.stringify(ok));
-        }
-        else res.end(JSON.stringify(fail));
-   });
+    var token=req.headers.token;
+    if(token_validi.indexOf(token)!=-1){
+        fs.readFile( __dirname + "/" + "biblioteche.json", 'utf8', function (err, data) {
+            biblioteche = JSON.parse( data );
+            var residui = biblioteche["biblioteca" + req.params.id]['postazioni'];
+            if(posti[req.params.id]>0){
+                posti[req.params.id]=posti[req.params.id]-1;
+                inviaNotifica("Studente in uscita sulla biblioteca " + req.params.id);
+                res.end(JSON.stringify(ok));
+            }
+            else res.end(JSON.stringify(fail));
+        });
+    }
+    else res.end(JSON.stringify(failauth));
 });
 
+//endpoint privato che permette di inviare notifiche
+router.post('/message/:text',function(req,res){
+    var token=req.headers.token;
+    if(token_validi.indexOf(token)!=-1){
+        inviaNotifica(req.params.text);
+        res.end(JSON.stringify(ok));
+    }
+    else res.end(JSON.stringify(failauth));
+});
+
+//endpoint pubblico per i titoli correlati ad un libro
 router.get('/book/:text',function(req,res,next){
 	request('https://www.tastekid.com/api/similar?k=256568-webtest-ZH9IQKM7&type=book&q='+req.params.text, function (error, response, body) {
     if (!error && response.statusCode == 200) {
