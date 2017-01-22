@@ -34,55 +34,8 @@ Per avviare il servizio basta mandare in esecuzione app.js, realizzata con frame
 ```
 GET /api/listaBiblioteche
 ```
-che produce la sequente risposta:
-```
-{
-   "biblioteca1" : {
-    "nome":"biblioteca di geologia",
-    "id":1,
-    "edificio" : "Geologia piano terreno",
-	  "wifi" : "SI",
-	  "pc" : 10,
-	  "postazioni": 200,
-    "noleggio" : "SI",
-    "h24" : "SI",
-    "twittertag":"geologia"
-   },
-   "biblioteca2" : {
-	   "nome":"biblioteca di chimica",
-    "id":2,
-    "edificio" : "Chimica quarto piano",
-	  "wifi" : "SI",
-	  "pc" : 0,
-	  "postazioni": 30,
-    "noleggio" : "NO",
-    "h24" : "NO",
-    "twittertag":"chimica"
-   },
-   "biblioteca3" : {
-	   "nome":"biblioteca alessandrina",
-    "id":3,
-    "edificio" : "Rettorato",
-	  "wifi" : "SI",
-	  "pc" : 7,
-	  "postazioni": 120,
-    "noleggio" : "SI",
-    "h24" : "NO",
-    "twittertag":"alessandrina"
-   },
-   "biblioteca4" : {
-	    "nome":"biblioteca di fisica",
-    "id":4,
-    "edificio" : "Fisica piano terreno",
-	  "wifi" : "NO",
-	  "pc" : 1,
-	  "postazioni": 200,
-    "noleggio" : "SI",
-    "h24" : "NO",
-    "twittertag":"fisica"
-   }
-}
-```
+che restituisce la lista di tutte le biblioteche con i dettagli
+
 ##Per avere informazioni su una singola biblioteca
 ```
 GET /api/{id}
@@ -97,7 +50,6 @@ GET /api/postiOccupati
 ```
 che produce la seguente risposta (si noti che la biblioteca 5 ancora non è implementata e darà sempre zero)
 ```
-
 {"1":11,"2":2,"3":1,"4":9,"5":0}
 ```
 ##Per ottenere suggerimenti sul titolo di un libro:
