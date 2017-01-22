@@ -106,4 +106,4 @@ altrimenti
 **Se si va su host:3000/api**
 ![api](screenshot/api.png)
 
-	
+L'idea di gestire i posti nelle biblioteche nasce con @Thecave3 con cui è stato sviluppato il client di test visionabile [qui](https://github.com/nicholas0g/biblio-enigma-client)
