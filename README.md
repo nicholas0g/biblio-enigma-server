@@ -1,6 +1,8 @@
 # biblio-enigma-server
 This repo contain the project for " Network comunications" - Sapienza Univ. of Rome ay2016/2017
 
+:boom: tutti i token di prova inclusi saranno invalidati nel momento in cui il progetto sarà approvato :boom:
+
 E' possible provare e testare il progetto in tutte le sue funzionalità all'indirizzo http://demo.nicholasgiordano.it:3000
 
 Nella seguente repository e possibile trovare il progetto per Reti di Calcolatori. 
