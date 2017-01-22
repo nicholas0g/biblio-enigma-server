@@ -17,6 +17,7 @@ Ongi volta che viene registrato uno studente in entrata o in uscita da una bibli
 * suggerire musica/libri/film relativamente ad un libro
 * segnalare uno studente in entrata in una biblioteca (nuovo posto occupato)
 * segnalare uno studente in uscita da una biblioteca (nuovo posto libero)
+* inviare un messaggio di testo come notifica ai sottoscrittori
 
 #Api esterne utilizate:
 * Twitter (per lo status sui social)
@@ -27,9 +28,123 @@ Ongi volta che viene registrato uno studente in entrata o in uscita da una bibli
 Per avviare il servizio basta mandare in esecuzione app.js, realizzata con framework expressjs e in esecuzione sulla porta 3000.
 
 #Utilizzo delle API:
-...da scrivere...
+##Per visionare la lista delle biblioteche con i dettagli
+```
+GET /api/listaBiblioteche
+```
+che produce la sequente risposta:
+```
+{
+   "biblioteca1" : {
+    "nome":"biblioteca di geologia",
+    "id":1,
+    "edificio" : "Geologia piano terreno",
+	  "wifi" : "SI",
+	  "pc" : 10,
+	  "postazioni": 200,
+    "noleggio" : "SI",
+    "h24" : "SI",
+    "twittertag":"geologia"
+   },
+   "biblioteca2" : {
+	   "nome":"biblioteca di chimica",
+    "id":2,
+    "edificio" : "Chimica quarto piano",
+	  "wifi" : "SI",
+	  "pc" : 0,
+	  "postazioni": 30,
+    "noleggio" : "NO",
+    "h24" : "NO",
+    "twittertag":"chimica"
+   },
+   "biblioteca3" : {
+	   "nome":"biblioteca alessandrina",
+    "id":3,
+    "edificio" : "Rettorato",
+	  "wifi" : "SI",
+	  "pc" : 7,
+	  "postazioni": 120,
+    "noleggio" : "SI",
+    "h24" : "NO",
+    "twittertag":"alessandrina"
+   },
+   "biblioteca4" : {
+	    "nome":"biblioteca di fisica",
+    "id":4,
+    "edificio" : "Fisica piano terreno",
+	  "wifi" : "NO",
+	  "pc" : 1,
+	  "postazioni": 200,
+    "noleggio" : "SI",
+    "h24" : "NO",
+    "twittertag":"fisica"
+   }
+}
+```
+##Per avere informazioni su una singola biblioteca
+```
+GET /api/{id}
+```
+dove id è l'id della biblioteca per la quale si desiderano le inforamzioni producendo la seguente risposta
+```
+{"nome":"biblioteca di fisica","id":4,"edificio":"Fisica piano terreno","wifi":"NO","pc":1,"postazioni":200,"noleggio":"SI","h24":"NO","twittertag":"fisica"}
+```
+##Per vedere il numero dei posti occupati nelle singole biblioteche
+```
+GET /api/postiOccupati
+```
+che produce la seguente risposta (si noti che la biblioteca 5 ancora non è implementata e darà sempre zero)
+```
 
-Di seguito alcune screen del servizio in esecuzione:
+{"1":11,"2":2,"3":1,"4":9,"5":0}
+```
+##Per ottenere suggerimenti sul titolo di un libro:
+```
+GET api/book/{title}
+```
+che produce la seguente risposta immaginando che il titolo del libro sia "the bible"
+```
+{"Similar": {"Info": [{"Name": "The Bible", "Type": "book"}], "Results": [{"Name": "Mere Christianity", "Type": "book"}, {"Name": "Jeremy Camp", "Type": "music"}, {"Name": "Third Day", "Type": "music"}, {"Name": "Chris Tomlin", "Type": "music"}, {"Name": "The Passion Of The Christ", "Type": "movie"}, {"Name": "Casting Crowns", "Type": "music"}, {"Name": "Steven Curtis Chapman", "Type": "music"}, {"Name": "Son Of God", "Type": "movie"}, {"Name": "Jesus Culture", "Type": "music"}, {"Name": "The Screwtape Letters", "Type": "book"}, {"Name": "Crazy Love", "Type": "book"}, {"Name": "Tobymac", "Type": "music"}, {"Name": "God's Not Dead", "Type": "movie"}, {"Name": "Lecrae", "Type": "music"}, {"Name": "Hillsong United", "Type": "music"}, {"Name": "Michael W. Smith", "Type": "music"}, {"Name": "Jars Of Clay", "Type": "music"}, {"Name": "Matthew West", "Type": "music"}, {"Name": "Kim Walker", "Type": "music"}, {"Name": "Kutless", "Type": "music"}]}}
+```
+##Per conoscere le opinioni social relativamente ad una biblioteca
+```
+GET /socialStatus/{id}
+```
+che riceve la seguente risposta
+```
+{"statuses":[],"search_metadata":{"completed_in":0.046,"max_id":823173922271039493,"max_id_str":"823173922271039493","query":"%23sapienza+%23geologia","refresh_url":"?since_id=823173922271039493&q=%23sapienza%20%23geologia&result_type=recent&include_entities=1","count":15,"since_id":0,"since_id_str":"0"}}
+```
+###Per quanto riguarda le api private
+* Aggiungere uno studente in ingresso in una biblioteca con id {id}
+```
+PUT /studente/{id}
+headers{token: <a valid token>}
+```
+* Aggiungere uno studente in uscita in una biblioteca con id {id}
+```
+DELETE /studente/{id}
+headers{token: <a valid token>}
+```
+* Inviare una notifica a tutti i sottoscrittori
+```
+POST /message/{text}
+headers{token: <a valid token>}
+```
+##I risultati delle chiamate private possono essere:
+Se non viene accettata l'autenticazione
+```
+{"result":"Authorization failure"}
+```
+Se si riesce ad aggiungere uno studente in entrata o in uscita (e quindi i posti nella biblioteca sono compresi tra 0 e la massima capienza)
+```
+{"result":"ok"}
+```
+altrimenti
+```
+{"result":"fail"}
+```
+
+##Di seguito alcune screen del servizio in esecuzione:
 (Per il framework grafico è stato utilizzato jade)
 
 **Se si va su host:3000**
