@@ -4,6 +4,7 @@ var onesignalapp="0a8fd04f-002e-46d4-9b00-1f207ec65e78";
 var onesinal_secret='YjliODM1NWYtZWVjMi00MWM4LTliZTgtYWM4NGQzODQ0NDdj';
 ////queste api di test saranno valide fino a quanto il prof non vedrà il progetto. Saranno poi rese inutilizzabili!
 
+var crypto = require('crypto');
 var express = require('express');
 var fs = require("fs");
 var request=require('request');
@@ -15,7 +16,7 @@ var ok={"result":"ok"};
 var fail={"result":"fail"};
 var failauth={"result":"Authorization failure"};
 //sono contenuti qui dei token di prova per autorizzare le chiama api ad endpoint privato
-var token_validi=['kdfgdskfgadfgadufgadsgf','dasfasfafafafadfa'];
+var token_validi=['203cfe6c7e37df4ec5eb51d3743076e9']; //hash md5 dei token
 
 //utilizzato per risolvere problematiche CORS
 router.use(function(req, res, next) {
@@ -53,7 +54,7 @@ router.get('/:id', function (req, res,next) {
 //endpoint privato che permette di segnalare studente in ingresso
 router.put('/studente/:id',function(req,res){
     var token=req.headers.token;
-    if(token_validi.indexOf(token)!=-1){
+    if(token_validi.indexOf(crypto.createHash('md5').update(token).digest("hex"))!=-1){
         fs.readFile( __dirname + "/" + "biblioteche.json", 'utf8', function (err, data) {
             biblioteche = JSON.parse( data );
             var residui = biblioteche["biblioteca" + req.params.id]['postazioni'];
@@ -71,7 +72,7 @@ router.put('/studente/:id',function(req,res){
 //endpoint privato che permette di segnalare studente in uscita
 router.delete('/studente/:id',function(req,res){
     var token=req.headers.token;
-    if(token_validi.indexOf(token)!=-1){
+    if(token_validi.indexOf(crypto.createHash('md5').update(token).digest("hex"))!=-1){
         fs.readFile( __dirname + "/" + "biblioteche.json", 'utf8', function (err, data) {
             biblioteche = JSON.parse( data );
             var residui = biblioteche["biblioteca" + req.params.id]['postazioni'];
@@ -89,7 +90,7 @@ router.delete('/studente/:id',function(req,res){
 //endpoint privato che permette di inviare notifiche
 router.post('/message/:text',function(req,res){
     var token=req.headers.token;
-    if(token_validi.indexOf(token)!=-1){
+    if(token_validi.indexOf(crypto.createHash('md5').update(token).digest("hex"))!=-1){
         inviaNotifica(req.params.text);
         res.end(JSON.stringify(ok));
     }
