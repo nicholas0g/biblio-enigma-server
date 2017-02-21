@@ -3,7 +3,7 @@ This repo contain the project for " Network comunications" - Sapienza Univ. of R
 
 :boom: tutti i token di prova inclusi saranno invalidati nel momento in cui il progetto sarà approvato :boom:
 
-E' possible provare e testare il progetto in tutte le sue funzionalità all'indirizzo http://demo.nicholasgiordano.it:3000
+E' possible provare e testare il progetto in tutte le sue funzionalità all'indirizzo http://demo.nicholasgiordano.it/biblio-enigma-server
 
 Nella seguente repository e possibile trovare il progetto per Reti di Calcolatori. 
 Il progetto svolge il seguente servizio: si occupa di gestire i posti disponibili nelle sale lettura delle biblioteche del nostro ateneo. 
