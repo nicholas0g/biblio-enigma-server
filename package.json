@@ -5,7 +5,7 @@
   "description": "Server per il servizio biblio enigma",
   "main": "app.js",
   "scripts": {
-    "start": "node ./app.js"
+    "start": "node app.js"
   },
   "author": "Nicholas Giordano - mat. 1633810",
   "dependencies": {
