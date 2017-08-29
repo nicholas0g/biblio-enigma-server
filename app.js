@@ -9,7 +9,7 @@ var index = require('./routes/index');
 var api = require('./routes/api');
 
 var app = express();
-
+app.set('port', (process.env.PORT || 5000));
 //setup jade come engine visivo
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -41,5 +41,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-app.listen(5000,function(){console.log("Servizio in esecuzione correttamente")});
+app.listen(app.get('port'),function(){
+  console.log("Servizio in esecuzione correttamente");
+});
 module.exports = app;
